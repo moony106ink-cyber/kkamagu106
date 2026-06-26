@@ -258,35 +258,34 @@
 
         ---------------------------------------------------- */
 
-
-.work-container { width: 100%; }
-
 .work-waterfall-wrapper {
-    column-count: 4;      /* 4열 고정 */
-    column-gap: 25px;     /* 간격 */
+    column-count: 4;
+    column-gap: 25px;
     width: 100%;
 }
 
 .work-item-card {
     break-inside: avoid;
-    margin-bottom: 40px;  /* 아이템 간 위아래 간격 */
+    margin-bottom: 50px;
     cursor: pointer;
+    text-align: center; /* 텍스트 중앙 정렬 */
     transition: opacity 0.3s;
 }
 
-.work-item-card.hidden { display: none; } /* 필터링용 */
+.work-item-card:hover { opacity: 0.7; }
 
 .work-img-frame img {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 4px;
+    margin-bottom: 15px; /* 이미지와 텍스트 간격 */
 }
 
-/* 텍스트 스타일: 이름 -> 카테고리 -> 연도 */
-.work-meta-name { margin-top: 15px; font-size: 14px; font-weight: 800; color: #fff; }
-.work-meta-category { margin-top: 4px; font-size: 12px; color: #888; text-transform: uppercase; }
-.work-meta-year { margin-top: 2px; font-size: 12px; color: #555; }
+/* 폰트 디자인 */
+.work-meta-name { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.work-meta-category { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 2px; }
+.work-meta-year { font-size: 12px; color: #555; }
 
         /* ----------------------------------------------------
 
@@ -776,33 +775,36 @@
         // 페이지 초기화 함수
 // 페이지 초기화 함수
 // 1. 데이터 가져오기 및 렌더링
-        async function initData() {
-            const workData = await fetchNotionData(DB_IDS.work);
-            const workContainer = document.getElementById('dynamic-work-waterfall');
+        
+// initData 함수 부분을 아래 내용으로 완전히 교체하세요
+async function initData() {
+    const workData = await fetchNotionData(DB_IDS.work);
+    const workContainer = document.getElementById('dynamic-work-waterfall');
+    
+    if(workContainer && workData.length > 0) {
+        workContainer.innerHTML = workData.map(item => {
+            const imgObj = item.properties.Image?.files?.[0];
+            const imageUrl = imgObj?.file?.url || imgObj?.external?.url || '';
+            const name = item.properties.Name?.title?.[0]?.plain_text || 'Untitled';
+            const category = item.properties.Category?.select?.name || 'Etc';
             
-            if(workContainer && workData.length > 0) {
-                workContainer.innerHTML = workData.map(item => {
-                    const imgObj = item.properties.Image?.files?.[0];
-                    const imageUrl = imgObj?.file?.url || imgObj?.external?.url || '';
-                    const name = item.properties.Name?.title?.[0]?.plain_text || 'Untitled';
-                    const category = item.properties.Category?.select?.name || 'Etc';
-                    const year = item.properties.Date?.date?.start ? item.properties.Date.date.start.substring(0, 4) : '';
+            // 연도 데이터 가져오기 (Date 속성의 이름이 'Date'인지 꼭 확인하세요!)
+            const dateProp = item.properties.Date?.date?.start;
+            const year = dateProp ? dateProp.substring(0, 4) : '';
 
-                    // 카테고리 이름을 소문자로 바꿔서 data-category 속성에 넣음 (필터용)
-                    return `
-                        <div class="work-item-card" data-category="${category.toLowerCase()}">
-                            <div class="work-img-frame">
-                                ${imageUrl ? `<img src="${imageUrl}" alt="${name}">` : '<div style="padding:20px; background:#1a1a1a;">이미지 없음</div>'}
-                            </div>
-                            <div class="work-meta-name">${name}</div>
-                            <div class="work-meta-category">${category}</div>
-                            <div class="work-meta-year">${year}</div>
-                        </div>
-                    `;
-                }).join('');
-            }
-        }
-
+            return `
+                <div class="work-item-card" data-category="${category.toLowerCase()}">
+                    <div class="work-img-frame">
+                        ${imageUrl ? `<img src="${imageUrl}" alt="${name}">` : '<div style="padding:20px; background:#1a1a1a;">이미지 없음</div>'}
+                    </div>
+                    <div class="work-meta-name">${name}</div>
+                    <div class="work-meta-category">${category}</div>
+                    <div class="work-meta-year">${year}</div>
+                </div>
+            `;
+        }).join('');
+    }
+}
         // 2. 페이지 전환 함수
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
