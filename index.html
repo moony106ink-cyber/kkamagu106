@@ -575,7 +575,24 @@
     </div>
 </div>
 
-
+<!-- 프로젝트 상세 페이지 (평소엔 숨김) -->
+<div id="page-work-detail" class="page-section" style="display: none;">
+    <div class="detail-container fade-in-effect" style="max-width: 800px; margin: 0 auto;">
+        <button onclick="showPage('work')" style="background:none; border:none; color:#555; cursor:pointer; margin-bottom:40px;">← BACK TO WORK</button>
+        
+        <h1 id="detail-title" style="font-size: 32px; font-weight: 800; margin-bottom: 10px;"></h1>
+        <div id="detail-meta" style="color: #666; margin-bottom: 50px; font-size: 14px;"></div>
+        
+        <!-- 노션 본문이 여기에 렌더링 됩니다 -->
+        <div id="detail-content" class="detail-article"></div>
+        
+        <!-- 하단 실선 및 정보 -->
+        <div class="detail-footer" style="margin-top: 100px; border-top: 1px solid #222; padding-top: 30px;">
+            <p><strong>CLIENT:</strong> <span id="detail-client"></span></p>
+            <p><strong>CREDIT:</strong> <span id="detail-credit"></span></p>
+        </div>
+    </div>
+</div>
 
     <!-- 3. STORY 섹션 -->
 
@@ -801,15 +818,15 @@
         };
 
         // 노션 데이터를 가져오는 함수
-        async function fetchNotionData(dbId) {
-            try {
-                const response = await fetch(`/.netlify/functions/get-notion-data?dbId=${dbId}`);
-                return await response.json();
-            } catch (e) {
-                console.error("데이터 로드 실패:", e);
-                return [];
-            }
-        }
+        
+// 기존 fetchNotionData를 찾아서 아래처럼 수정
+async function fetchNotionData(dbId = null, pageId = null) {
+    const url = pageId 
+        ? `/.netlify/functions/get-notion-data?pageId=${pageId}` 
+        : `/.netlify/functions/get-notion-data?dbId=${dbId}`;
+    const res = await fetch(url);
+    return await res.json();
+}
 
         // 페이지 초기화 함수
 // 페이지 초기화 함수
@@ -831,16 +848,17 @@ async function initData() {
             const dateProp = item.properties.Date?.date?.start;
             const year = dateProp ? dateProp.substring(0, 4) : '';
 
-            return `
-                <div class="work-item-card" data-category="${category.toLowerCase()}">
-                    <div class="work-img-frame">
-                        ${imageUrl ? `<img src="${imageUrl}" alt="${name}">` : '<div style="padding:20px; background:#1a1a1a;">이미지 없음</div>'}
-                    </div>
-                    <div class="work-meta-name">${name}</div>
-                    <div class="work-meta-category">${category}</div>
-                    <div class="work-meta-year">${year}</div>
-                </div>
-            `;
+       // initData 함수 내부의 workData 렌더링 부분에서 
+// <div class="work-item-card" ... > 부분을 아래처럼 수정하세요.
+
+// initData 함수 내부의 return 부분 수정
+return `
+    <div class="work-item-card" data-category="${category.toLowerCase()}" 
+         onclick="showWorkDetail('${item.id}', '${name}', '${category}')">
+        
+    </div>
+`;
+
         }).join('');
     }
 // initData 함수 내부의 기존 workData 아래에 이어서 작성하세요
@@ -904,9 +922,54 @@ if(storyContainer && storyData.length > 0) {
             console.log("Shop 카테고리 선택:", categoryName);
         }
 
+async function showWorkDetail(pageId, title, category) {
+    // 1. 화면 전환
+    document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+    document.getElementById('page-work-detail').classList.add('active');
+    
+    // 2. 제목/카테고리 세팅
+    document.getElementById('detail-title').innerText = title;
+    document.getElementById('detail-meta').innerText = category;
+    
+    // 3. 내용 로딩 시작
+    const contentDiv = document.getElementById('detail-content');
+    contentDiv.innerHTML = "<p>Loading...</p>";
+
+    // 4. 노션 블록 가져오기
+    try {
+        const blocks = await fetchNotionData(null, pageId);
+        
+        // 5. 우리가 정의한 renderNotionBlock 함수를 사용하여 HTML 생성
+        contentDiv.innerHTML = blocks.map(b => renderNotionBlock(b)).join('');
+    } catch (e) {
+        contentDiv.innerHTML = "<p>콘텐츠를 불러오는 중 오류가 발생했습니다.</p>";
+    }
+
+    window.scrollTo(0, 0);
+}
+
+// 노션 블록을 HTML로 변환하는 도우미 함수
+function renderNotionBlock(block) {
+    if (block.type === 'paragraph') {
+        const text = block.paragraph.rich_text.map(t => t.plain_text).join('');
+        return text ? `<p style="margin-bottom:20px; line-height:1.8;">${text}</p>` : '';
+    }
+    if (block.type === 'image') {
+        const url = block.image.file?.url || block.image.external?.url;
+        return `<img src="${url}" style="width:100%; margin:30px 0; border-radius:8px;">`;
+    }
+    if (block.type === 'heading_2') {
+        const text = block.heading_2.rich_text.map(t => t.plain_text).join('');
+        return `<h2 style="margin:40px 0 20px 0;">${text}</h2>`;
+    }
+    return '';
+}
+
         document.addEventListener("DOMContentLoaded", () => {
             initData();
         });
+
+
     </script>
 
   
