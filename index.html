@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Kkamagu106 - Studio & Shop</title>
+
+    <style>
+
+        /* 올리우어 다크 톤앤매너 베이스 */
+
+        :root {
+
+            --bg-color: #0a0a0a;
+
+            --text-color: #ffffff;
+
+            --sub-text: #444444; 
+
+            --card-bg: #141414;
+
+            --accent-color: #ff4d4d;
+
+            --story-blue: #3b82f6;   
+
+            --side-padding: 60px; 
+
+        }
+
+
+
+        * {
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            font-family: 'Apple SD Gothic Neo', 'Inter', sans-serif;
+
+            margin: 0;
+
+            padding: 0;
+
+            background-color: var(--bg-color);
+
+            color: var(--text-color);
+
+            letter-spacing: -1px; 
+
+        }
+
+
+
+        header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 40px var(--side-padding);
+
+            background-color: var(--bg-color);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 100;
+
+        }
+
+
+
+        .logo {
+
+            font-size: 22px;
+
+            font-weight: 900;
+
+            letter-spacing: -1.5px;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+        }
+
+
+
+        nav a {
+
+            margin-left: 40px;
+
+            text-decoration: none;
+
+            color: #555;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+            transition: color 0.3s;
+
+        }
+
+
+
+        nav a:hover, nav a.active {
+
+            color: var(--text-color);
+
+        }
+
+
+
+        .page-section {
+
+            display: none;
+
+            width: 100%;
+
+            padding: 20px var(--side-padding) 80px var(--side-padding);
+
+            margin: 0;
+
+        }
+
+        .page-section.active {
+
+            display: block;
+
+        }
+
+
+
+        /* 카테고리 내비 바 (밑줄 선 완전 삭제 튜닝) */
+
+        .category-nav {
+
+            display: flex;
+
+            justify-content: center;
+
+            padding-bottom: 15px;
+
+            margin-bottom: 60px;
+
+        }
+
+        .category-tab {
+
+            margin: 0 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+
+            color: #444; 
+
+            cursor: pointer;
+
+            text-transform: uppercase;
+
+            transition: color 0.3s;
+
+            border-bottom: none; 
+
+            padding-bottom: 5px;
+
+        }
+
+        .category-tab:hover, .category-tab.active { 
+
+            color: var(--text-color); 
+
+            border-bottom: none; 
+
+        }
+
+        .category-tab.sale-tab { color: var(--accent-color); }
+
+        .category-tab.sale-tab:hover, .category-tab.sale-tab.active { 
+
+            color: var(--accent-color); 
+
+            border-bottom: none; 
+
+        }
+
+
+
+        /* ----------------------------------------------------
+
+           HOME 영역
+
+        ---------------------------------------------------- */
+
+        .home-intro-brand { margin: 60px 0 0 0; text-align: left; }
+
+        .home-intro-en { font-size: 52px; font-weight: 800; line-height: 1.15; color: #fff; max-width: 1200px; margin-bottom: 30px; word-break: keep-all; }
+
+        .home-intro-ko { font-size: 18px; font-weight: 500; line-height: 1.6; color: #666; max-width: 900px; word-break: keep-all; }
+
+        .home-featured-title { font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #fff; margin-top: 65px; margin-bottom: 25px; }
+
+        .home-diagonal-slash-box { width: 145px; height: 145px; margin-bottom: 120px; }
+
+        .home-diagonal-slash-box svg { width: 100%; height: 100%; }
+
+
+
+        .home-portfolio-archive { width: 100%; }
+
+        .portfolio-item-block { display: flex; align-items: stretch; gap: 25px; margin-bottom: 240px; width: 100%; }
+
+        .portfolio-item-block.reverse-layout { flex-direction: row-reverse; }
+
+        .portfolio-row-image-wide { flex: 2; width: 66.66%; aspect-ratio: 16 / 7.33; background-color: var(--card-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 15px; font-weight: 700; }
+
+        .pf-text-side { flex: 1; width: 33.33%; display: flex; flex-direction: column; justify-content: flex-start; text-align: left; padding: 5px 0; }
+
+        .pf-title { font-size: 42px; font-weight: 800; color: #fff; line-height: 1.35; margin: 0 0 40px 0; }
+
+        .pf-info-category { font-size: 42px; font-weight: 800; color: #ffffff; line-height: 1.15; text-transform: uppercase; margin: 0 0 10px 0; }
+
+        .pf-info-year { font-size: 42px; font-weight: 800; color: #ffffff; line-height: 1.15; text-transform: uppercase; text-align: left; margin: 0 0 15px 0; }
+
+        .pf-summary-text { font-size: 16px; color: #ffffff; line-height: 1.7; margin-top: 0; margin-bottom: auto; max-width: 540px; word-break: keep-all; }
+
+        .btn-pf-learn-more { background: none; border: none; text-decoration: none; padding: 0; color: #fff; font-size: 16px; font-weight: 500; letter-spacing: 1px; cursor: pointer; text-transform: uppercase; transition: color 0.2s; margin-top: 20px; align-self: flex-start; }
+
+        .btn-pf-learn-more:hover { color: var(--story-blue); }
+
+
+
+        /* ----------------------------------------------------
+
+           WORK 영역 (4열 워터폴 기둥 격자)
+
+        ---------------------------------------------------- */
+
+        .work-container { width: 100%; }
+
+        .work-waterfall-wrapper { column-count: 4; column-gap: 30px; width: 100%; }
+
+        .work-item-card { break-inside: avoid; margin-bottom: 50px; width: 100%; display: flex; flex-direction: column; cursor: pointer; }
+
+        .work-img-frame { width: 100%; background-color: var(--card-bg); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #333; font-size: 13px; font-weight: 700; transition: transform 0.3s ease; }
+
+        .work-item-card:hover .work-img-frame { transform: translateY(-4px); }
+
+        .work-meta-main-row { display: flex; justify-content: space-between; align-items: flex-start; font-size: 14px; font-weight: 800; color: #fff; margin-top: 14px; line-height: 1.3; }
+
+        .work-meta-year { font-size: 14px; color: #fff; font-weight: 800; margin-left: 15px; }
+
+        .work-meta-sub-row { font-size: 11px; color: #555; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; margin-top: 5px; }
+
+
+
+        /* ----------------------------------------------------
+
+           SHOP 영역
+
+        ---------------------------------------------------- */
+
+        .shop-container { width: 100%; }
+
+        .shop-content-header { text-align: center; margin-bottom: 40px; }
+
+        .shop-content-header h2 { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; text-transform: uppercase; color: #fff; }
+
+        .product-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 80px; width: 100%; }
+
+        .product-card { background-color: var(--card-bg); border-radius: 6px; overflow: hidden; text-decoration: none; color: inherit; transition: transform 0.2s; }
+
+        .product-card:hover { transform: translateY(-4px); }
+
+        .product-image { width: 100%; aspect-ratio: 1 / 1; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center; color: #444; font-size: 13px; }
+
+        .product-info { padding: 15px; text-align: left; }
+
+        .product-info .title { font-size: 15px; font-weight: 600; margin: 0 0 6px 0; color: #fff; }
+
+        .product-info .price { font-size: 14px; color: #aaa; font-weight: 500; }
+
+        .sale-badge { color: var(--accent-color); font-size: 13px; font-weight: bold; margin-right: 6px; }
+
+
+
+        /* STORY 및 CONTACT 인프라 */
+
+        .story-header { text-align: center; margin-bottom: 90px; }
+
+        .story-header h1 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; }
+
+        .story-header p { color: #555; font-size: 15px; }
+
+        .story-list-vertical { display: flex; flex-direction: column; gap: 40px; width: 100%; margin-bottom: 80px; }
+
+        .story-card { display: flex; align-items: flex-start; gap: 40px; text-decoration: none; color: inherit; transition: transform 0.2s; cursor: pointer; padding: 15px 0; }
+
+        .story-card:hover { transform: translateX(6px); }
+
+        .story-img { width: 280px; aspect-ratio: 16 / 10; background-color: var(--card-bg); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 13px; flex-shrink: 0; }
+
+        .story-body { flex-grow: 1; text-align: left; padding-top: 5px; }
+
+        .story-date { font-size: 13px; color: var(--story-blue); font-weight: 600; margin-bottom: 8px; }
+
+        .story-title { font-size: 20px; font-weight: 700; color: #fff; margin: 0 0 10px 0; line-height: 1.4; }
+
+        .story-snippet { font-size: 14px; color: #555; line-height: 1.6; }
+
+        .story-detail-container { width: 100%; padding-bottom: 100px; }
+
+        .story-detail-content-wrap { max-width: 750px; margin: 0 auto; text-align: left; }
+
+        .story-detail-meta { font-size: 14px; color: var(--story-blue); font-weight: 600; margin-bottom: 15px; }
+
+        .story-detail-title-main { font-size: 34px; font-weight: 800; line-height: 1.3; color: #fff; margin: 0 0 35px 0; letter-spacing: -1px; }
+
+        .story-detail-hero-img { width: 100%; aspect-ratio: 16 / 9; background-color: var(--card-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 15px; margin-bottom: 40px; }
+
+        .story-detail-article { font-size: 16px; color: #e0e0e0; line-height: 1.8; letter-spacing: -0.3px; }
+
+        .story-detail-article p { margin-bottom: 28px; }
+
+
+
+        .contact-container { width: 100%; margin-top: 20px; }
+
+        .contact-title-large { font-size: 40px; font-weight: 800; letter-spacing: -1px; margin-bottom: 80px; color: #fff; }
+
+        .contact-grid-3x2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 150px 100px; }
+
+        .contact-grid-item { display: flex; flex-direction: column; align-items: flex-start; }
+
+        .contact-grid-label { font-size: 12px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+
+        .contact-grid-value { font-size: 17px; color: #fff; line-height: 1.6; }
+
+        .contact-grid-link { color: #fff; font-weight: 700; text-decoration: none; border-bottom: 1px solid #fff; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+
+        .contact-grid-link:hover { color: var(--story-blue); border-color: var(--story-blue); }
+
+        .btn-call-to-action-form { background-color: #fff; color: #000; border: none; padding: 15px 30px; font-size: 13px; font-weight: 700; letter-spacing: 0.5px; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+
+        .btn-call-to-action-form:hover { background-color: #e5e5e5; transform: translateY(-2px); }
+
+        .contact-form-container { max-width: 750px; margin: 40px auto 100px auto; text-align: left; }
+
+        .contact-form-row { display: flex; padding: 25px 0; align-items: center; }
+
+        .contact-form-row.align-top { align-items: flex-start; }
+
+        .contact-form-label { width: 200px; font-size: 13px; font-weight: 700; color: #555; text-transform: uppercase; letter-spacing: 1px; }
+
+        .contact-form-input-wrap { flex-grow: 1; }
+
+        .input-text-dark { width: 100%; background: transparent; border: none; border-bottom: 1px solid #222; padding: 10px 0; color: #fff; font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.3s; }
+
+        .input-text-dark:focus { border-color: var(--story-blue); }
+
+        .select-dark { width: 100%; background-color: var(--card-bg); border: 1px solid #222; padding: 12px; color: #fff; font-size: 15px; border-radius: 4px; outline: none; font-family: inherit; cursor: pointer; }
+
+        .textarea-dark { width: 100%; height: 150px; background: transparent; border: 1px solid #222; padding: 15px; color: #fff; font-size: 15px; font-family: inherit; outline: none; box-sizing: border-box; border-radius: 6px; resize: none; transition: border-color 0.3s; }
+
+        .textarea-dark:focus { border-color: var(--story-blue); }
+
+        .btn-submit-order { width: 100%; background-color: #fff; color: #000; border: none; padding: 20px; font-size: 15px; font-weight: 700; letter-spacing: 1px; border-radius: 6px; cursor: pointer; margin-top: 40px; text-transform: uppercase; transition: all 0.3s ease; }
+
+        .btn-submit-order:hover { background-color: #e5e5e5; transform: translateY(-2px); }
+
+        .success-message-box { display: none; background-color: var(--card-bg); border: 1px solid var(--story-blue); padding: 50px 40px; border-radius: 8px; text-align: center; max-width: 600px; margin: 100px auto; }
+
+        .success-message-box h3 { font-size: 22px; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+
+        .success-message-box p { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 30px; }
+
+        .btn-success-confirm { background-color: var(--story-blue); color: #fff; border: none; padding: 14px 45px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; text-transform: uppercase; transition: background-color 0.2s; }
+
+        .btn-success-confirm:hover { background-color: #2563eb; }
+
+
+
+        .fade-in-effect { animation: fadeIn 0.4s ease-out forwards; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+
+
+
+        footer { text-align: center; padding: 60px 20px; font-size: 13px; color: #333; margin-top: 150px; }
+
+    </style>
+
+</head>
+
+<body>
+
+
+
+    <!-- 상단 바 -->
+
+    <header>
+
+        <div class="logo" onclick="showPage('home')">Kkamagu106</div>
+
+        <nav>
+
+            <a id="nav-home" onclick="showPage('home')" class="active">HOME</a>
+
+            <a id="nav-work" onclick="showPage('work')">WORK</a>
+
+            <a id="nav-story" onclick="showPage('story')">STORY</a>
+
+            <a id="nav-shop" onclick="showPage('shop')">SHOP</a>
+
+            <a id="nav-contact" onclick="showPage('contact')">CONTACT</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- 1. HOME 섹션 -->
+
+    <div id="page-home" class="page-section active">
+
+        <div class="home-intro-brand fade-in-effect">
+
+            <div class="home-intro-en">Kkamagu106 is a design partner for small businesses, providing editorial graphic design and instantly downloadable digital assets.</div>
+
+            <div class="home-intro-ko">까마귀106은 소상공인을 위한 디자인 파트너로, 편집 그래픽 디자인과 즉시 다운로드 가능한 디지털 에셋을 제공합니다.</div>
+
+        </div>
+
+        <div class="home-featured-title fade-in-effect">Featured works</div>
+
+        <div class="home-diagonal-slash-box fade-in-effect">
+
+            <svg viewBox="0 0 100 100" preserveAspectRatio="none"><line x1="0" y1="100" x2="100" y2="0" stroke="#ffffff" stroke-width="1" /></svg>
+
+        </div>
+
+        <div class="home-portfolio-archive fade-in-effect">
+
+            <div class="portfolio-item-block">
+
+                <div class="portfolio-row-image-wide">[ Wide Project Image — 01 ]</div>
+
+                <div class="pf-text-side">
+
+                    <div class="pf-title">소상공인 봄 시즌 패키징 감사 스티커 번들 키트</div>
+
+                    <div class="pf-info-category">Identity Graphic</div>
+
+                    <div class="pf-info-year">2026</div>
+
+                    <p class="pf-summary-text">카페 및 독립 브랜드 사장님들을 위해 봄날의 화사한 텍스처를 직관적으로 해석한 고해상도 패키징용 그래픽 스티커 시스템 자산 아카이브입니다.</p>
+
+                    <button class="btn-pf-learn-more" onclick="showPage('work')">LEARN MORE</button>
+
+                </div>
+
+            </div>
+
+            <div class="portfolio-item-block reverse-layout">
+
+                <div class="portfolio-row-image-wide">[ Wide Project Image — 02 ]</div>
+
+                <div class="pf-text-side">
+
+                    <div class="pf-title">미니멀 다크 레이어 비즈니스 피치덱 PPT 마스터 소스</div>
+
+                    <div class="pf-info-category">Editorial Template</div>
+
+                    <div class="pf-info-year">2026</div>
+
+                    <p class="pf-summary-text">올리우어 스타일의 절제된 타이포그래피 비율을 차용하여 소상공인 제안서의 신뢰도를 극대화할 수 있도록 설계된 즉시 다운로드 서식 자산입니다.</p>
+
+                    <button class="btn-pf-learn-more" onclick="showPage('work')">LEARN MORE</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 2. WORK 섹션 -->
+
+    <div id="page-work" class="page-section">
+
+        <div class="work-container fade-in-effect">
+
+            <div class="category-nav">
+
+                <div id="tab-work-all" class="category-tab work-tab active" onclick="filterWorkPage('all', this)">All</div>
+
+                <div class="category-tab work-tab" onclick="filterWorkPage('identity', this)">Identity</div>
+
+                <div class="category-tab" onclick="filterWorkPage('editorial', this)">Editorial</div>
+
+                <div class="category-tab" onclick="filterWorkPage('packaging', this)">Packaging</div>
+
+                <div class="category-tab" onclick="filterWorkPage('artwork', this)">Artwork & Character</div>
+
+            </div>
+
+            <div id="dynamic-work-waterfall" class="work-waterfall-wrapper"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 3. STORY 섹션 -->
+
+    <div id="page-story" class="page-section">
+
+        <div id="story-list-view" class="fade-in-effect">
+
+            <div class="story-header">
+
+                <h1>STORY</h1>
+
+                <p>디자이너 Gina의 작업 일지와 까마귀106의 비하인드 스토리.</p>
+
+            </div>
+
+            <div id="notion-blog-grid" class="story-list-vertical"></div>
+
+        </div>
+
+        <div id="story-detail-view" class="story-detail-container fade-in-effect" style="display: none;"></div>
+
+    </div>
+
+
+
+    <!-- 4. SHOP 섹션 -->
+
+    <div id="page-shop" class="page-section">
+
+        <div class="shop-container">
+
+            <div class="category-nav">
+
+                <div id="tab-shop-sale" class="category-tab shop-tab active sale-tab" onclick="filterShopPage('sale', this)">Sale</div>
+
+                <div class="category-tab shop-tab" onclick="filterShopPage('sticker', this)">Sticker & Packaging</div>
+
+                <div class="category-tab shop-tab" onclick="filterShopPage('ppt', this)">PPT & Presentation</div>
+
+                <div class="category-tab shop-tab" onclick="filterShopPage('goodnotes', this)">Goodnotes & Diary</div>
+
+                <div class="category-tab shop-tab" onclick="filterShopPage('branding', this)">Branding Kit</div>
+
+                <div class="category-tab shop-tab" onclick="filterShopPage('artwork', this)">Artwork & Seonwoo</div>
+
+            </div>
+
+            <div id="category-content">
+
+                <div class="shop-content-header"><h2 id="current-category-name">SALE</h2></div>
+
+                <div id="dynamic-shop-grid" class="product-grid-4"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 5. CONTACT 섹션 -->
+
+    <div id="page-contact" class="page-section">
+
+        <div id="contact-landing-view" class="contact-container fade-in-effect">
+
+            <h1 class="contact-title-large">CONTACT</h1>
+
+            <div class="contact-grid-3x2">
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Email</div>
+
+                    <div class="contact-grid-value"><a href="mailto:contact@kkamagu106.com" class="contact-grid-link">contact@kkamagu106.com</a></div>
+
+                </div>
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Instagram</div>
+
+                    <div class="contact-grid-value"><a href="#" class="contact-grid-link">@kkamagu106</a></div>
+
+                </div>
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Location</div>
+
+                    <div class="contact-grid-value" style="color: var(--sub-text);">Gumi, South Korea</div>
+
+                </div>
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Office Hours</div>
+
+                    <div class="contact-grid-value">Mon — Fri<br>10:00 — 18:00</div>
+
+                </div>
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Project Guide</div>
+
+                    <div class="contact-grid-value" style="color: #555; font-size:14px; line-height:1.5;">예산, 마감일정, 대략적인 기획 개요를 준비해주시면 원활한 프로젝트 빌드가 가능합니다.</div>
+
+                </div>
+
+                <div class="contact-grid-item">
+
+                    <div class="contact-grid-label">Online Request</div>
+
+                    <div class="contact-grid-value"><button class="btn-call-to-action-form" onclick="openContactForm()">프로젝트 문의하기</button></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <div id="contact-form-view" class="contact-form-container fade-in-effect" style="display: none;">
+
+            <button class="btn-back-to-list" onclick="closeContactForm()">BACK TO CONTACT</button>
+
+            <h1 class="contact-title-large">PROJECT INQUIRY</h1>
+
+            <p class="contact-desc">내용을 기재해 주시면 디자이너 Gina가 검토 후 빠른 시일 내에 연락드리겠습니다.</p>
+
+            <form id="kkamagu-order-form" onsubmit="submitContactForm(event)">
+
+                <div class="contact-form-row">
+
+                    <div class="contact-form-label">Client / Brand</div>
+
+                    <div class="contact-form-input-wrap"><input type="text" required placeholder="성함 또는 기업/브랜드명을 적어주세요." class="input-text-dark"></div>
+
+                </div>
+
+                <div class="contact-form-row">
+
+                    <div class="contact-form-label">Project Type</div>
+
+                    <div class="contact-form-input-wrap">
+
+                        <select class="select-dark">
+
+                            <option value="sticker">시즌제 패키징 / 스티커 디자인 외주</option>
+
+                            <option value="branding">브랜드 로고 / 비즈니스 키트 브랜딩</option>
+
+                            <option value="ppt">맞춤형 프리메이드 PPT 디자인 템플릿</option>
+
+                            <option value="custom">기타 맞춤형 장기 그래픽 외주</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <div class="contact-form-row">
+
+                    <div class="contact-form-label">Budget Range</div>
+
+                    <div class="contact-form-input-wrap"><input type="text" placeholder="생각하시는 대략적인 예산 범위를 알려주세요." class="input-text-dark"></div>
+
+                </div>
+
+                <div class="contact-form-row">
+
+                    <div class="contact-form-label">Deadline</div>
+
+                    <div class="contact-form-input-wrap"><input type="text" placeholder="원하시는 최종 마감 일정을 적어주세요. (예: 2026년 8월 중순)" class="input-text-dark"></div>
+
+                </div>
+
+                <div class="contact-form-row align-top">
+
+                    <div class="contact-form-label" style="padding-top: 15px;">Description</div>
+
+                    <div class="contact-form-input-wrap" style="padding: 15px 0;"><textarea required placeholder="프로젝트 개요, 주요 요구사항, 혹은 참고할 만한 레퍼런스 주소가 있다면 자유롭게 남겨주세요." class="textarea-dark"></textarea></div>
+
+                </div>
+
+                <button type="submit" class="btn-submit-order">까마귀106에게 의뢰서 전송하기</button>
+
+            </form>
+
+        </div>
+
+
+
+        <div id="form-success-box" class="success-message-box fade-in-effect">
+
+            <h3>ORDER FORM SENT SUCCESSFULLY</h3>
+
+            <p>의뢰서가 성공적으로 보관되었습니다.<br>디자이너 Gina가 확인 후 24시간 이내에 회신드리겠습니다.</p>
+
+            <div style="margin-top: 30px;"><button class="btn-success-confirm" onclick="showPage('home')">확인</button></div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 하단 영역 -->
+
+    <footer>&copy; 2026 Kkamagu106. All rights reserved.</footer>
+
+
+
+<script>
+        const DB_IDS = {
+            work: "38b10e3ee64a804b93b2eca603d3b49a",
+            story: "38b10e3ee64a80ff902fd87aef2a84f4",
+            shop: "38b10e3ee64a80d49c46e8469957d7e5"
+        };
+
+        // 노션 데이터를 가져오는 함수
+        async function fetchNotionData(dbId) {
+            try {
+                const response = await fetch(`/.netlify/functions/get-notion-data?dbId=${dbId}`);
+                return await response.json();
+            } catch (e) {
+                console.error("데이터 로드 실패:", e);
+                return [];
+            }
+        }
+
+        // 페이지 초기화 함수
+        async function initData() {
+            // 1. WORK 데이터 가져오기
+            const workData = await fetchNotionData(DB_IDS.work);
+            const workContainer = document.getElementById('dynamic-work-waterfall');
+            if(workData.length > 0 && workContainer) {
+                workContainer.innerHTML = workData.map(item => `
+                    <div class="work-item-card">
+                        <div class="work-img-frame"></div>
+                        <div class="work-meta-main-row">${item.properties.Name?.title[0]?.plain_text || 'Untitled'}</div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // 기존 showPage 함수 유지
+        function showPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('header nav a').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + pageId).classList.add('active');
+            document.getElementById('nav-' + pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // 기존 filter 함수 유지
+        function filterWorkPage(category, element) { /* 기존 내용 그대로 사용 */ }
+        function filterShopPage(categoryName, element) { /* 기존 내용 그대로 사용 */ }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initData();
+        });
+    </script>
+
+  
+</body>
+
+</html>
