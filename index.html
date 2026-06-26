@@ -775,34 +775,44 @@
         // 페이지 초기화 함수
 // 페이지 초기화 함수
 async function initData() {
-    // 1. WORK 데이터 가져오기
     const workData = await fetchNotionData(DB_IDS.work);
-    
-    // 이 줄이 데이터를 보여주는 마법의 눈입니다!
-    console.log("Notion 데이터 확인:", workData); 
-
     const workContainer = document.getElementById('dynamic-work-waterfall');
     
-    if(workData.length > 0 && workContainer) {
-        workContainer.innerHTML = workData.map(item => {
-            const imageUrl = item.properties.Image?.files[0]?.file?.url || item.properties.Image?.files[0]?.external?.url || '';
-            
-            return `
-                <div class="work-item-card">
-                    <div class="work-img-frame">
-                        ${imageUrl ? `<img src="${imageUrl}" alt="img" style="width:100%;">` : '이미지 없음'}
+    if(workContainer) {
+        if(workData.length > 0) {
+            workContainer.innerHTML = workData.map(item => {
+                // 안전하게 데이터 읽기 (데이터가 없어도 에러 안 나게 방어)
+                const imgObj = item.properties.Image?.files?.[0];
+                const imageUrl = imgObj?.file?.url || imgObj?.external?.url || '';
+                
+                // Name 안전하게 읽기
+                const nameProp = item.properties.Name;
+                const title = (nameProp?.title && nameProp.title.length > 0) ? nameProp.title[0].plain_text : '제목 없음';
+                
+                // Category 안전하게 읽기
+                const catProp = item.properties.Category;
+                const category = catProp?.select?.name || '분류없음';
+
+                return `
+                    <div class="work-item-card">
+                        <div class="work-img-frame">
+                            ${imageUrl ? `<img src="${imageUrl}" alt="img" style="width:100%;">` : '이미지 없음'}
+                        </div>
+                        <div class="work-meta-main-row">
+                            <strong>${title}</strong>
+                        </div>
+                        <div class="work-meta-category">
+                            카테고리: ${category}
+                        </div>
                     </div>
-                    <div class="work-meta-main-row">
-                        <strong>${item.properties.Name?.title[0]?.plain_text || 'Untitled'}</strong>
-                    </div>
-                    <div class="work-meta-category">
-                        카테고리: ${item.properties.Category?.select?.name || '분류없음'}
-                    </div>
-                </div>
-            `;
-        }).join('');
+                `;
+            }).join('');
+        } else {
+            workContainer.innerHTML = "<p>데이터가 없습니다.</p>";
+        }
     }
 }
+
         // 기존 showPage 함수 유지
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
