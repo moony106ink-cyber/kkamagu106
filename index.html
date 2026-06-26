@@ -833,34 +833,32 @@ async function fetchNotionData(dbId = null, pageId = null) {
 // 1. 데이터 가져오기 및 렌더링
         
 // initData 함수 부분을 아래 내용으로 완전히 교체하세요
+
+// index.html 내 데이터를 불러오는 부분 수정 예시
 async function initData() {
-    const workData = await fetchNotionData(DB_IDS.work);
-    const workContainer = document.getElementById('dynamic-work-waterfall');
-    
-    if(workContainer && workData.length > 0) {
-        workContainer.innerHTML = workData.map(item => {
-            const imgObj = item.properties.Image?.files?.[0];
-            const imageUrl = imgObj?.file?.url || imgObj?.external?.url || '';
-            const name = item.properties.Name?.title?.[0]?.plain_text || 'Untitled';
-            const category = item.properties.Category?.select?.name || 'Etc';
-            
-            // 연도 데이터 가져오기 (Date 속성의 이름이 'Date'인지 꼭 확인하세요!)
-            const dateProp = item.properties.Date?.date?.start;
-            const year = dateProp ? dateProp.substring(0, 4) : '';
-
-       // initData 함수 내부의 workData 렌더링 부분에서 
-// <div class="work-item-card" ... > 부분을 아래처럼 수정하세요.
-
-// initData 함수 내부의 return 부분 수정
-return `
-    <div class="work-item-card" data-category="${category.toLowerCase()}" 
-         onclick="showWorkDetail('${item.id}', '${name}', '${category}')">
+    try {
+        const response = await fetch(`/.netlify/functions/get-notion-data?dbId=${DB_IDS.work}`);
+        const data = await response.json();
         
-    </div>
-`;
+        console.log("최종 데이터 구조:", data); // 이게 콘솔에 어떻게 찍히는지 보세요!
 
-        }).join('');
+        // 데이터가 배열인지 확인하고 처리
+        // 만약 data.results로 감싸져 있다면 아래처럼 data.results로 바꾸세요!
+        const items = Array.isArray(data) ? data : (data.results || []);
+
+        const container = document.getElementById('dynamic-work-waterfall');
+        if(container && items.length > 0) {
+            container.innerHTML = items.map(item => {
+                // 여기에 들어갈 속성 이름(item.properties.이름.rich_text 등)이 
+                // 실제 노션 데이터 구조와 맞는지 꼭 확인해야 합니다!
+                return `<div>${item.properties?.Title?.title?.[0]?.plain_text || '제목없음'}</div>`;
+            }).join('');
+        }
+    } catch (err) {
+        console.error("데이터 렌더링 중 오류:", err);
     }
+}
+
 // initData 함수 내부의 기존 workData 아래에 이어서 작성하세요
 const storyData = await fetchNotionData(DB_IDS.story);
 const storyContainer = document.getElementById('notion-blog-grid');
