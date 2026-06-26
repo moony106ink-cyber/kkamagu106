@@ -773,19 +773,39 @@
         }
 
         // 페이지 초기화 함수
-        async function initData() {
-            // 1. WORK 데이터 가져오기
-            const workData = await fetchNotionData(DB_IDS.work);
-            const workContainer = document.getElementById('dynamic-work-waterfall');
-            if(workData.length > 0 && workContainer) {
-                workContainer.innerHTML = workData.map(item => `
-                    <div class="work-item-card">
-                        <div class="work-img-frame"></div>
-                        <div class="work-meta-main-row">${item.properties.Name?.title[0]?.plain_text || 'Untitled'}</div>
+// 페이지 초기화 함수
+async function initData() {
+    // 1. WORK 데이터 가져오기
+    const workData = await fetchNotionData(DB_IDS.work);
+    const workContainer = document.getElementById('dynamic-work-waterfall');
+    
+    if(workData.length > 0 && workContainer) {
+        workContainer.innerHTML = workData.map(item => {
+            // 이미지 주소 가져오기 (파일 업로드형 vs 외부 링크형)
+            const imageUrl = item.properties.Image?.files[0]?.file?.url || item.properties.Image?.files[0]?.external?.url || '';
+            
+            return `
+                <div class="work-item-card">
+                    <div class="work-img-frame">
+                        ${imageUrl ? `<img src="${imageUrl}" alt="img" style="width:100%;">` : '이미지 없음'}
                     </div>
-                `).join('');
-            }
-        }
+                    <div class="work-meta-main-row">
+                        <strong>${item.properties.Name?.title[0]?.plain_text || 'Untitled'}</strong>
+                    </div>
+                    <div class="work-meta-category">
+                        카테고리: ${item.properties.Category?.select?.name || '분류없음'}
+                    </div>
+                    <div class="work-meta-date">
+                        날짜: ${item.properties.Date?.date?.start || '날짜없음'}
+                    </div>
+                    <div class="work-meta-link">
+                        <a href="${item.properties.Link?.url || '#'}" target="_blank">바로가기</a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+}      
 
         // 기존 showPage 함수 유지
         function showPage(pageId) {
