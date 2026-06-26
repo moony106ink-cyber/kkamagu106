@@ -777,11 +777,14 @@
 async function initData() {
     // 1. WORK 데이터 가져오기
     const workData = await fetchNotionData(DB_IDS.work);
+    
+    // 이 줄이 데이터를 보여주는 마법의 눈입니다!
+    console.log("Notion 데이터 확인:", workData); 
+
     const workContainer = document.getElementById('dynamic-work-waterfall');
     
     if(workData.length > 0 && workContainer) {
         workContainer.innerHTML = workData.map(item => {
-            // 이미지 주소 가져오기 (파일 업로드형 vs 외부 링크형)
             const imageUrl = item.properties.Image?.files[0]?.file?.url || item.properties.Image?.files[0]?.external?.url || '';
             
             return `
@@ -795,18 +798,11 @@ async function initData() {
                     <div class="work-meta-category">
                         카테고리: ${item.properties.Category?.select?.name || '분류없음'}
                     </div>
-                    <div class="work-meta-date">
-                        날짜: ${item.properties.Date?.date?.start || '날짜없음'}
-                    </div>
-                    <div class="work-meta-link">
-                        <a href="${item.properties.Link?.url || '#'}" target="_blank">바로가기</a>
-                    </div>
                 </div>
             `;
         }).join('');
     }
-}      
-
+}
         // 기존 showPage 함수 유지
         function showPage(pageId) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
