@@ -342,45 +342,43 @@
 
 
 
-        /* STORY 및 CONTACT 인프라 */
+/* ----------------------------------------------------
+    STORY 영역 (Zeroperzero 스타일)
+---------------------------------------------------- */
+.story-header { text-align: center; margin-bottom: 60px; }
+.story-header h1 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; }
 
-        .story-header { text-align: center; margin-bottom: 90px; }
+/* 리스트 레이아웃 */
+.story-container { max-width: 800px; margin: 0 auto; }
 
-        .story-header h1 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 15px; }
+.story-item { 
+    display: flex; 
+    gap: 30px; 
+    margin-bottom: 50px; 
+    border-bottom: 1px solid #222; 
+    padding-bottom: 30px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+.story-item:hover { opacity: 0.7; }
 
-        .story-header p { color: #555; font-size: 15px; }
+.story-thumb { 
+    width: 200px; 
+    aspect-ratio: 16 / 10; 
+    background-color: var(--card-bg); 
+    border-radius: 4px; 
+    overflow: hidden; 
+    flex-shrink: 0; 
+}
+.story-thumb img { width: 100%; height: 100%; object-fit: cover; }
 
-        .story-list-vertical { display: flex; flex-direction: column; gap: 40px; width: 100%; margin-bottom: 80px; }
-
-        .story-card { display: flex; align-items: flex-start; gap: 40px; text-decoration: none; color: inherit; transition: transform 0.2s; cursor: pointer; padding: 15px 0; }
-
-        .story-card:hover { transform: translateX(6px); }
-
-        .story-img { width: 280px; aspect-ratio: 16 / 10; background-color: var(--card-bg); border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 13px; flex-shrink: 0; }
-
-        .story-body { flex-grow: 1; text-align: left; padding-top: 5px; }
-
-        .story-date { font-size: 13px; color: var(--story-blue); font-weight: 600; margin-bottom: 8px; }
-
-        .story-title { font-size: 20px; font-weight: 700; color: #fff; margin: 0 0 10px 0; line-height: 1.4; }
-
-        .story-snippet { font-size: 14px; color: #555; line-height: 1.6; }
-
-        .story-detail-container { width: 100%; padding-bottom: 100px; }
-
-        .story-detail-content-wrap { max-width: 750px; margin: 0 auto; text-align: left; }
-
-        .story-detail-meta { font-size: 14px; color: var(--story-blue); font-weight: 600; margin-bottom: 15px; }
-
-        .story-detail-title-main { font-size: 34px; font-weight: 800; line-height: 1.3; color: #fff; margin: 0 0 35px 0; letter-spacing: -1px; }
-
-        .story-detail-hero-img { width: 100%; aspect-ratio: 16 / 9; background-color: var(--card-bg); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #444; font-size: 15px; margin-bottom: 40px; }
-
-        .story-detail-article { font-size: 16px; color: #e0e0e0; line-height: 1.8; letter-spacing: -0.3px; }
-
-        .story-detail-article p { margin-bottom: 28px; }
+.story-info { display: flex; flex-direction: column; justify-content: center; }
+.story-date { font-size: 12px; color: var(--story-blue); font-weight: 600; margin-bottom: 8px; }
+.story-name { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+.story-text { font-size: 14px; color: #888; line-height: 1.6; }
 
 
+/* 기존 CONTACT 스타일은 아래에 그대로 두셔도 됩니다 */
 
         .contact-container { width: 100%; margin-top: 20px; }
 
@@ -829,6 +827,31 @@ async function initData() {
             `;
         }).join('');
     }
+// initData 함수 내부의 기존 workData 아래에 이어서 작성하세요
+const storyData = await fetchNotionData(DB_IDS.story);
+const storyContainer = document.getElementById('notion-blog-grid');
+
+if(storyContainer && storyData.length > 0) {
+    storyContainer.innerHTML = storyData.map(item => {
+        const imgObj = item.properties.Image?.files?.[0];
+        const imageUrl = imgObj?.file?.url || imgObj?.external?.url || '';
+        const name = item.properties.Name?.title?.[0]?.plain_text || 'Untitled';
+        const date = item.properties.Date?.date?.start || '';
+        // Text 속성이 'Text'라는 이름으로 노션에 있다고 가정
+        const text = item.properties.Text?.rich_text?.[0]?.plain_text || '내용 없음';
+
+        return `
+            <div class="story-card">
+                <div class="story-img">${imageUrl ? `<img src="${imageUrl}" style="width:100%; height:100%; object-fit:cover;">` : 'No Image'}</div>
+                <div class="story-body">
+                    <div class="story-date">${date}</div>
+                    <div class="story-title">${name}</div>
+                    <div class="story-snippet">${text}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
 }
         // 2. 페이지 전환 함수
         function showPage(pageId) {
