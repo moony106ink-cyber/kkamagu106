@@ -258,40 +258,35 @@
 
         ---------------------------------------------------- */
 
-        
-/* ----------------------------------------------------
-           WORK 영역 (워터폴 격자)
-        ---------------------------------------------------- */
-        .work-container { width: 100%; }
-        
-        .work-waterfall-wrapper {
-            column-count: 3;
-            column-gap: 20px;
-            width: 100%;
-        }
 
-        .work-item-card {
-            break-inside: avoid;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: opacity 0.3s;
-        }
+.work-container { width: 100%; }
 
-        .work-item-card:hover { opacity: 0.7; }
+.work-waterfall-wrapper {
+    column-count: 4;      /* 4열 고정 */
+    column-gap: 25px;     /* 간격 */
+    width: 100%;
+}
 
-        .work-img-frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-            border-radius: 4px;
-        }
+.work-item-card {
+    break-inside: avoid;
+    margin-bottom: 40px;  /* 아이템 간 위아래 간격 */
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
 
-        .work-meta-main-row {
-            margin-top: 10px;
-            font-size: 13px;
-            color: #fff;
-            font-weight: 600;
-        }
+.work-item-card.hidden { display: none; } /* 필터링용 */
+
+.work-img-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+/* 텍스트 스타일: 이름 -> 카테고리 -> 연도 */
+.work-meta-name { margin-top: 15px; font-size: 14px; font-weight: 800; color: #fff; }
+.work-meta-category { margin-top: 4px; font-size: 12px; color: #888; text-transform: uppercase; }
+.work-meta-year { margin-top: 2px; font-size: 12px; color: #555; }
 
         /* ----------------------------------------------------
 
