@@ -1,0 +1,170 @@
+:root{
+  --ink:#0E0F13;          /* 먹빛 바탕 */
+  --ink-raised:#16181F;   /* 카드·표면 */
+  --ink-line:rgba(236,233,225,0.12);
+  --paper:#ECE9E1;        /* 따뜻한 오프화이트 글자 */
+  --muted:#8A8D97;        /* 보조 텍스트 */
+  --sheen-a:#7C5CFF;      /* 까마귀 깃털 광택 - 보라 */
+  --sheen-b:#37D0C4;      /* 까마귀 깃털 광택 - 청록 */
+  --grad:linear-gradient(105deg,var(--sheen-a),var(--sheen-b));
+  --maxw:1120px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);color:var(--paper);
+  font-family:"IBM Plex Sans KR",system-ui,sans-serif;
+  font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.mono{font-family:"Space Grotesk",monospace}
+.eyebrow{
+  font-family:"Space Grotesk",monospace;font-size:12px;font-weight:500;
+  letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
+}
+.grad-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+a{color:inherit;text-decoration:none}
+
+/* ---------- NAV (투명, 영상 위에 얹힘) ---------- */
+.site-nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  border-bottom:1px solid transparent;transition:background .3s,border-color .3s,backdrop-filter .3s;
+}
+.site-nav.scrolled{background:rgba(14,15,19,.82);backdrop-filter:blur(10px);border-color:var(--ink-line)}
+/* 서브페이지는 뒤에 영상이 없으니 헤더 배경을 은은히 깔아 가독성 확보 */
+body.sub .site-nav{background:rgba(14,15,19,.9);backdrop-filter:blur(10px);border-color:var(--ink-line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+.brand{display:flex;align-items:center}
+.brand img{height:24px;width:auto;display:block}
+.nav-links{display:flex;gap:28px;font-size:13.5px;color:var(--muted)}
+.nav-links a{transition:color .2s;position:relative}
+.nav-links a:hover{color:var(--paper)}
+.nav-links a.active{color:var(--paper)}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--grad)}
+@media(max-width:640px){
+  .nav-links{gap:15px;font-size:12px}
+  .brand img{height:20px}
+  .nav-in{height:60px}
+}
+
+/* ---------- FULL-SCREEN HERO (대문 영상) ---------- */
+.hero{position:relative;height:100svh;min-height:560px;display:flex;align-items:flex-end;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0;background:#090A0E;overflow:hidden}
+/* 지금은 가짜 영상(모션). 나중에 아래 .hero-media 내용을
+   <video autoplay muted loop playsinline poster="..."> ... </video> 로 교체하면 실제 영상 */
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-media .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.6;mix-blend-mode:screen;will-change:transform}
+.hero-media .b1{width:44vw;height:44vw;background:var(--sheen-a);left:0%;top:6%;animation:float1 13s ease-in-out infinite alternate}
+.hero-media .b2{width:52vw;height:52vw;background:var(--sheen-b);right:-4%;bottom:-12%;animation:float2 16s ease-in-out infinite alternate}
+.hero-media .b3{width:34vw;height:34vw;background:#4f7bff;left:38%;top:-12%;animation:float3 19s ease-in-out infinite alternate}
+@keyframes float1{to{transform:translate(30%,22%) scale(1.25)}}
+@keyframes float2{to{transform:translate(-24%,-18%) scale(1.15)}}
+@keyframes float3{to{transform:translate(16%,30%) scale(.85)}}
+.hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(9,10,14,.55) 0%,rgba(9,10,14,.12) 32%,rgba(9,10,14,.15) 58%,rgba(9,10,14,.9) 100%)}
+.hero-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(52px,10vh,120px)}
+.hero .eyebrow{color:rgba(236,233,225,.82);margin-bottom:18px}
+.hero-title{
+  font-family:"Space Grotesk",monospace;font-weight:700;
+  font-size:clamp(40px,7vw,84px);line-height:1.02;letter-spacing:-.02em;margin-bottom:22px;
+}
+.hero-title .kr{font-family:"IBM Plex Sans KR";font-weight:700}
+.hero-sub{font-size:clamp(15px,1.8vw,19px);color:rgba(236,233,225,.92);max-width:52ch;line-height:1.55}
+.hero-sub .thin{color:rgba(236,233,225,.62)}
+.hero-hint{position:absolute;z-index:2;right:22px;bottom:20px;
+  font-family:"Space Grotesk",monospace;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:rgba(236,233,225,.7)}
+
+/* ---------- PAGE HERO (서브페이지 상단 제목) ---------- */
+.page-hero{padding:calc(70px + clamp(56px,11vh,110px)) 0 clamp(28px,6vh,56px);border-bottom:1px solid var(--ink-line)}
+.page-hero .eyebrow{margin-bottom:14px}
+.page-hero h1{font-family:"Space Grotesk",monospace;font-weight:700;font-size:clamp(30px,5vw,56px);letter-spacing:-.02em;line-height:1.05}
+.page-hero h1 .kr{font-family:"IBM Plex Sans KR"}
+.page-hero .lead{color:var(--muted);margin-top:16px;max-width:56ch;font-size:16px}
+
+/* ---------- SECTION SHELL ---------- */
+.section{padding:clamp(56px,9vh,104px) 0}
+.section.bd{border-top:1px solid var(--ink-line)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:40px;flex-wrap:wrap}
+.sec-head h2{font-family:"Space Grotesk",monospace;font-weight:700;font-size:clamp(24px,3.2vw,36px);letter-spacing:-.01em}
+.sec-head h2 .kr{font-family:"IBM Plex Sans KR"}
+.more-link{font-family:"Space Grotesk",monospace;font-size:13.5px;color:var(--muted);transition:color .2s}
+.more-link:hover{color:var(--sheen-b)}
+
+/* ---------- WORK ---------- */
+.work-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px}
+.work-card{transition:transform .25s ease}
+.work-card:hover{transform:translateX(12px)}
+.work-thumb{aspect-ratio:16/10;background:linear-gradient(135deg,#1b1e27,#101219);border-radius:12px;
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.work-thumb img{width:100%;height:100%;object-fit:cover}
+.work-thumb .ph{font-family:"Space Grotesk",monospace;font-size:12px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.work-meta{padding:16px 2px 0}
+.work-meta .tag{font-family:"Space Grotesk",monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--sheen-b)}
+.work-meta h3{font-size:18px;font-weight:700;margin:9px 0 6px}
+.work-meta p{font-size:14px;color:var(--muted);line-height:1.6}
+@media(max-width:700px){.work-grid{grid-template-columns:1fr}}
+
+/* ---------- STORY ---------- */
+.story-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:start}
+.story-lead{font-family:"Space Grotesk",monospace;font-weight:400;font-size:clamp(20px,2.6vw,30px);line-height:1.35;letter-spacing:-.01em}
+.story-lead .kr{font-family:"IBM Plex Sans KR";font-weight:300}
+.story-body p{color:var(--muted);font-size:15.5px;margin-bottom:16px;max-width:56ch}
+.story-body p b{color:var(--paper);font-weight:500}
+@media(max-width:820px){.story-grid{grid-template-columns:1fr;gap:26px}}
+
+/* ---------- NOTICE ---------- */
+.notice-list{border-top:1px solid var(--ink-line)}
+.notice-row{display:grid;grid-template-columns:130px 1fr auto;gap:20px;align-items:baseline;
+  padding:22px 4px;border-bottom:1px solid var(--ink-line);transition:padding-left .25s}
+.notice-row:hover{padding-left:14px}
+.notice-row .date{font-family:"Space Grotesk",monospace;font-size:13px;color:var(--muted)}
+.notice-row .t{font-size:16px}
+.notice-row .cat{font-family:"Space Grotesk",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--sheen-a)}
+@media(max-width:640px){
+  .notice-row{grid-template-columns:1fr auto;gap:6px}
+  .notice-row .date{grid-column:1/-1;order:-1}
+}
+
+/* ---------- ORDER FORM ---------- */
+.order-wrap{background:var(--ink-raised);border:1px solid var(--ink-line);border-radius:20px;padding:clamp(26px,4vw,46px)}
+.order-intro{color:var(--muted);font-size:15px;margin-bottom:30px;max-width:58ch}
+.field{margin-bottom:22px}
+.field label{display:block;font-size:13.5px;margin-bottom:8px;color:var(--paper)}
+.field label .req{color:var(--sheen-a);margin-left:4px}
+.field input,.field textarea{
+  width:100%;background:var(--ink);border:1px solid var(--ink-line);border-radius:10px;
+  color:var(--paper);font-family:inherit;font-size:15px;padding:13px 14px;transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--sheen-a)}
+.field textarea{min-height:120px;resize:vertical}
+.field .hint{font-size:12.5px;color:var(--muted);margin-top:7px;line-height:1.6}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;gap:0}}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
+  font-family:"Space Grotesk",monospace;font-weight:500;font-size:15px;letter-spacing:.02em;
+  padding:15px 26px;border-radius:11px;background:var(--grad);color:#0b0c10;transition:transform .2s,filter .2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.order-note{margin-top:16px;font-size:12.5px;color:var(--muted)}
+.order-status{margin-top:14px;font-size:14px;min-height:1.2em}
+.order-status.ok{color:var(--sheen-b)}
+.order-status.err{color:#ff9b8a}
+
+/* ---------- FOOTER ---------- */
+footer{padding:48px 0;border-top:1px solid var(--ink-line);color:var(--muted);font-size:13px}
+.foot-in{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
+.foot-info{line-height:1.85}
+.foot-info a{color:var(--muted)}
+.foot-info a:hover{color:var(--sheen-b)}
+.foot-copy{color:var(--muted)}
+
+/* ---------- reveal ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  .hero-media .blob{animation:none}
+}
