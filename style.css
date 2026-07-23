@@ -109,9 +109,10 @@ body.sub .site-nav{background:rgba(14,15,19,.55);backdrop-filter:blur(10px)}
 /* ---------- PAGE HERO (서브페이지 상단 제목 — 영문·흰색·가운데) ---------- */
 .page-hero{padding:calc(70px + clamp(56px,11vh,110px)) 0 clamp(28px,6vh,52px);text-align:center}
 .page-hero h1{font-family:"Paperlogy",sans-serif;font-weight:900;font-size:34px;letter-spacing:.02em;line-height:1.1;color:var(--paper);text-transform:uppercase}
-/* Work 페이지: 제목+탭(빨간선 위)을 상단 고정, 작업 그리드는 그 아래로 스크롤 */
-body.work-page .page-hero{position:sticky;top:0;z-index:30;background:var(--ink);padding:calc(70px + 20px) 0 24px}
-body.work-page .section{padding-top:34px}
+/* Work 탭바: 헤더 아래 상단 고정, 아래 그리드가 그 밑으로 스크롤(간격 일정) */
+.work-tabbar{position:sticky;top:70px;z-index:30;background:var(--ink);padding:14px 0 26px}
+body.work-page .section{padding-top:0}
+@media(max-width:640px){.work-tabbar{top:60px}}
 
 /* ---------- SECTION SHELL ---------- */
 .section{padding:clamp(56px,9vh,104px) 0}
@@ -161,7 +162,7 @@ body.work-page .section{padding-top:34px}
 .feat-hint{position:absolute;z-index:2;right:20px;top:18px;font-family:"Paperlogy",sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 
 /* ---------- WORK 필터 탭 ---------- */
-.work-tabs{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:60px 0 0}
+.work-tabs{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:0}
 .work-tab{font-family:"Paperlogy",sans-serif;font-size:14px;font-weight:300;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);
   background:transparent;border:1.5px solid var(--ink-line);border-radius:999px;padding:9px 20px;cursor:pointer;transition:all .2s}
 .work-tab:hover{color:var(--paper);border-color:rgba(236,233,225,.3)}
