@@ -115,6 +115,21 @@
       if(el){ e.preventDefault(); lenis.scrollTo(el); }
     });
   });
+
+  // 뒤로 덮이는(빠지는) 패널을 스크롤 진행만큼 살짝 블러 + 살짝 어둡게
+  const panels = Array.from(document.querySelectorAll('.stack .panel'));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function updatePanels(){
+    const vh = window.innerHeight;
+    const y = window.scrollY || window.pageYOffset;
+    panels.forEach((p,i)=>{
+      const prog = Math.min(Math.max((y - i*vh)/vh, 0), 1); // 0(안 덮임)~1(완전히 덮임)
+      const blur = (prog*5).toFixed(2);          // 최대 5px, 살짝만
+      const bright = (1 - prog*0.22).toFixed(3); // 살짝 어둡게(뒤로 빠지는 느낌)
+      p.style.filter = `blur(${blur}px) brightness(${bright})`;
+    });
+  }
+  if(!reduce){ lenis.on('scroll', updatePanels); updatePanels(); }
 </script>
 <script src="app.js"></script>
 </body>
