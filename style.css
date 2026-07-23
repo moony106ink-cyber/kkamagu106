@@ -88,7 +88,7 @@ body.sub .site-nav{background:rgba(14,15,19,.9);backdrop-filter:blur(10px)}
 
 /* ---------- PAGE HERO (서브페이지 상단 제목 — 영문·흰색·가운데) ---------- */
 .page-hero{padding:calc(70px + clamp(56px,11vh,110px)) 0 clamp(28px,6vh,52px);text-align:center}
-.page-hero h1{font-family:"Paperlogy",sans-serif;font-weight:900;font-size:clamp(18px,2.4vw,24px);letter-spacing:.02em;line-height:1.1;color:var(--paper)}
+.page-hero h1{font-family:"Paperlogy",sans-serif;font-weight:900;font-size:17px;letter-spacing:.02em;line-height:1.1;color:var(--paper)}
 
 /* ---------- SECTION SHELL ---------- */
 .section{padding:clamp(56px,9vh,104px) 0}
