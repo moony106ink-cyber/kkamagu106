@@ -109,6 +109,9 @@ body.sub .site-nav{background:rgba(14,15,19,.55);backdrop-filter:blur(10px)}
 /* ---------- PAGE HERO (서브페이지 상단 제목 — 영문·흰색·가운데) ---------- */
 .page-hero{padding:calc(70px + clamp(56px,11vh,110px)) 0 clamp(28px,6vh,52px);text-align:center}
 .page-hero h1{font-family:"Paperlogy",sans-serif;font-weight:900;font-size:34px;letter-spacing:.02em;line-height:1.1;color:var(--paper);text-transform:uppercase}
+/* Work 페이지: 제목+탭(빨간선 위)을 상단 고정, 작업 그리드는 그 아래로 스크롤 */
+body.work-page .page-hero{position:sticky;top:0;z-index:30;background:var(--ink);padding:calc(70px + 20px) 0 24px}
+body.work-page .section{padding-top:34px}
 
 /* ---------- SECTION SHELL ---------- */
 .section{padding:clamp(56px,9vh,104px) 0}
@@ -221,8 +224,6 @@ footer{padding:64px 0;border-top:1px solid var(--ink-line);color:var(--muted);fo
 .foot-col a:hover{color:var(--sheen-b)}
 .foot-copy{color:var(--muted)}
 @media(max-width:760px){.foot-in{grid-template-columns:1fr;gap:22px;text-align:center}}
-/* 대문 푸터는 한 화면 크기로(전체화면 마지막 섹션) */
-html.home footer{min-height:100svh;display:flex;align-items:center}
 
 /* ---------- reveal ---------- */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
