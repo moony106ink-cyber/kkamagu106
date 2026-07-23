@@ -20,31 +20,37 @@ if(tabs.length){
   }));
 }
 
-// 발주서 -> 메일 (inquiry 페이지에서만 동작)
-const $=id=>document.getElementById(id);
-const sendBtn=$('sendBtn');
-if(sendBtn){
+// 발주서 -> Formspree 전송 (메일앱 없이 바로 발송, inquiry 페이지에서만)
+const form=document.getElementById('orderForm');
+const sendBtn=document.getElementById('sendBtn');
+if(form && sendBtn){
+  const $=id=>document.getElementById(id);
   const status=$('status');
-  sendBtn.addEventListener('click',()=>{
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
     const name=$('f_name').value.trim();
     const contact=$('f_contact').value.trim();
     const agree=$('f_agree').value.trim();
     if(!name||!contact){status.className='order-status err';status.textContent='이름/회사명과 연락처는 꼭 입력해주세요.';return;}
     if(agree!=='동의'){status.className='order-status err';status.textContent="개인정보 수집 동의란에 '동의'라고 입력해주세요.";return;}
-    const lines=[
-      '■ 이름/회사명: '+name,
-      '■ 연락처: '+contact,
-      '■ 작업 종류: '+($('f_type').value.trim()||'-'),
-      '■ 예산: '+($('f_budget').value.trim()||'-'),
-      '■ 희망 마감일: '+($('f_due').value.trim()||'-'),
-      '',
-      '■ 내용:',
-      ($('f_body').value.trim()||'-'),
-      '',
-      '■ 개인정보 수집 동의: 동의'
-    ].join('\n');
-    const subject='[까마귀106 발주서] '+name;
-    location.href='mailto:kamagui106@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(lines);
-    status.className='order-status ok';status.textContent='메일 앱을 열었습니다. 발송 버튼을 눌러 전송을 완료해주세요.';
+    status.className='order-status';status.textContent='보내는 중...';
+    sendBtn.disabled=true;
+    try{
+      const res=await fetch(form.action,{
+        method:'POST',
+        headers:{'Accept':'application/json'},
+        body:new FormData(form)
+      });
+      if(res.ok){
+        form.reset();
+        status.className='order-status ok';status.textContent='문의가 전송되었습니다. 검토 후 회신드리겠습니다. 감사합니다.';
+      }else{
+        status.className='order-status err';status.textContent='전송에 실패했습니다. 잠시 후 다시 시도하거나 kamagui106@gmail.com 으로 보내주세요.';
+      }
+    }catch(err){
+      status.className='order-status err';status.textContent='전송 중 오류가 발생했습니다. kamagui106@gmail.com 으로 보내주세요.';
+    }finally{
+      sendBtn.disabled=false;
+    }
   });
 }
