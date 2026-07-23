@@ -116,17 +116,21 @@
     });
   });
 
-  // 뒤로 덮이는(빠지는) 패널을 스크롤 진행만큼 살짝 블러 + 살짝 어둡게
+  // 뒤로 덮이는(빠지는) 패널: 스크롤 진행만큼 위로 살짝 밀리고 + 블러 + 살짝 어둡게 (헤더 포함 동일)
   const panels = Array.from(document.querySelectorAll('.stack .panel'));
+  const last = panels.length - 1;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   function updatePanels(){
     const vh = window.innerHeight;
     const y = window.scrollY || window.pageYOffset;
     panels.forEach((p,i)=>{
+      if(i === last){ p.style.filter='none'; p.style.transform='none'; return; } // 마지막(대표 프로젝트 3)은 효과 없음
       const prog = Math.min(Math.max((y - i*vh)/vh, 0), 1); // 0(안 덮임)~1(완전히 덮임)
-      const blur = (prog*5).toFixed(2);          // 최대 5px, 살짝만
-      const bright = (1 - prog*0.22).toFixed(3); // 살짝 어둡게(뒤로 빠지는 느낌)
+      const blur = (prog*5).toFixed(2);          // 최대 5px
+      const bright = (1 - prog*0.22).toFixed(3); // 살짝 어둡게
+      const shift = (-prog*44).toFixed(1);        // 위로 살짝 밀림(슬라이딩)
       p.style.filter = `blur(${blur}px) brightness(${bright})`;
+      p.style.transform = `translateY(${shift}px)`;
     });
   }
   if(!reduce){ lenis.on('scroll', updatePanels); updatePanels(); }
