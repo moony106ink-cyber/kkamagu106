@@ -139,6 +139,14 @@
     });
   }
   if(!reduce){ lenis.on('scroll', updatePanels); updatePanels(); }
+
+  // 헤더: 대문(히어로)에서 벗어나면 위로 숨김, 맨 상단으로 오면 다시 내려옴
+  const navEl = document.getElementById('nav');
+  function updateNav(){
+    const y = window.scrollY || window.pageYOffset;
+    navEl.classList.toggle('nav-hidden', y > window.innerHeight * 0.6);
+  }
+  lenis.on('scroll', updateNav); updateNav();
 </script>
 <script src="app.js"></script>
 </body>
