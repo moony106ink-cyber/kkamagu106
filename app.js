@@ -8,6 +8,18 @@ const io=new IntersectionObserver((es)=>{
 },{threshold:.14});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+// Work 카테고리 필터 (work 페이지에서만 동작)
+const tabs=document.querySelectorAll('.work-tab');
+if(tabs.length){
+  const cards=document.querySelectorAll('.work-card[data-cat]');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    const f=t.dataset.filter;
+    cards.forEach(c=>{c.hidden = !(f==='all' || c.dataset.cat===f);});
+  }));
+}
+
 // 발주서 -> 메일 (inquiry 페이지에서만 동작)
 const $=id=>document.getElementById(id);
 const sendBtn=$('sendBtn');

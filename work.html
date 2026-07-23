@@ -26,45 +26,50 @@
 
 <section class="page-hero">
   <div class="wrap">
-    <div class="eyebrow">Work</div>
-    <h1>작업</h1>
-    <p class="lead">로고·브랜딩부터 편집 디자인, 상업용 굿즈까지 — 완성한 작업들입니다.</p>
+    <h1>Work</h1>
   </div>
 </section>
 
 <section class="section">
   <div class="wrap">
+    <div class="work-tabs">
+      <button class="work-tab active" data-filter="all">전체</button>
+      <button class="work-tab" data-filter="brand">로고·브랜딩</button>
+      <button class="work-tab" data-filter="editorial">편집디자인</button>
+      <button class="work-tab" data-filter="goods">굿즈</button>
+      <button class="work-tab" data-filter="web">웹</button>
+    </div>
     <div class="work-grid">
-      <!-- 작업물 추가: 이 .work-card 블록을 복사해서 이미지·제목·설명만 바꾸면 됩니다.
-           썸네일에 이미지 넣을 땐 <div class="work-thumb"><img src="파일명.jpg" alt=""></div> 로 교체 -->
-      <a class="work-card reveal" href="#">
+      <!-- 작업물 추가: .work-card 복사 후 data-cat 을 brand/editorial/goods/web 중 하나로 지정.
+           썸네일 이미지는 <div class="work-thumb"><img src="파일명.jpg" alt=""></div> 로 교체 -->
+      <a class="work-card reveal" href="#" data-cat="brand">
         <div class="work-thumb"><span class="ph">이미지 자리</span></div>
         <div class="work-meta">
-          <div class="tag">Project</div>
+          <div class="tag">로고·브랜딩</div>
           <h3>프로젝트 제목</h3>
           <p>작업 소개가 들어갑니다.</p>
         </div>
       </a>
-      <a class="work-card reveal" href="#">
+      <a class="work-card reveal" href="#" data-cat="editorial">
         <div class="work-thumb"><span class="ph">이미지 자리</span></div>
         <div class="work-meta">
-          <div class="tag">Project</div>
+          <div class="tag">편집디자인</div>
           <h3>프로젝트 제목</h3>
           <p>작업 소개가 들어갑니다.</p>
         </div>
       </a>
-      <a class="work-card reveal" href="#">
+      <a class="work-card reveal" href="#" data-cat="goods">
         <div class="work-thumb"><span class="ph">이미지 자리</span></div>
         <div class="work-meta">
-          <div class="tag">Project</div>
+          <div class="tag">굿즈</div>
           <h3>프로젝트 제목</h3>
           <p>작업 소개가 들어갑니다.</p>
         </div>
       </a>
-      <a class="work-card reveal" href="#">
+      <a class="work-card reveal" href="#" data-cat="web">
         <div class="work-thumb"><span class="ph">이미지 자리</span></div>
         <div class="work-meta">
-          <div class="tag">Project</div>
+          <div class="tag">웹</div>
           <h3>프로젝트 제목</h3>
           <p>작업 소개가 들어갑니다.</p>
         </div>
