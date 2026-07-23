@@ -60,12 +60,11 @@ body.sub .site-nav{background:rgba(14,15,19,.9);backdrop-filter:blur(10px)}
 }
 
 /* ---------- 스티키 스택 (대문: 앞 화면 고정 + 다음 화면이 덮으며 등장) ---------- */
-html.home{scroll-snap-type:y mandatory}
 .stack{position:relative}
-.panel{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden;scroll-snap-align:start;scroll-snap-stop:always}
+.panel{position:sticky;top:0;height:100svh;min-height:560px;overflow:hidden}
 
 /* ---------- FULL-SCREEN HERO (대문 영상) ---------- */
-.hero{display:flex;align-items:flex-end}
+.hero{display:flex;align-items:center}
 .hero-media{position:absolute;inset:0;z-index:0;background:#090A0E;overflow:hidden}
 /* 지금은 가짜 영상(모션). 나중에 아래 .hero-media 내용을
    <video autoplay muted loop playsinline poster="..."> ... </video> 로 교체하면 실제 영상 */
@@ -79,7 +78,7 @@ html.home{scroll-snap-type:y mandatory}
 @keyframes float3{to{transform:translate(16%,30%) scale(.85)}}
 .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
   background:linear-gradient(180deg,rgba(9,10,14,.55) 0%,rgba(9,10,14,.12) 32%,rgba(9,10,14,.15) 58%,rgba(9,10,14,.9) 100%)}
-.hero-content{position:relative;z-index:2;width:100%;padding-bottom:clamp(52px,10vh,120px)}
+.hero-content{position:relative;z-index:2;width:100%}
 .hero .eyebrow{color:rgba(236,233,225,.82);margin-bottom:18px}
 .hero-title{
   font-family:"Paperlogy",sans-serif;font-weight:900;
@@ -142,11 +141,13 @@ html.home{scroll-snap-type:y mandatory}
   background:linear-gradient(90deg,rgba(9,10,14,.8) 0%,rgba(9,10,14,.4) 42%,rgba(9,10,14,.12) 100%),
              linear-gradient(0deg,rgba(9,10,14,.55) 0%,transparent 40%)}
 .feat-body{position:absolute;z-index:2;left:max(24px,calc(50vw - var(--maxw)/2 + 24px));
-  bottom:clamp(40px,8vh,90px);right:24px;color:#fff}
+  top:50%;transform:translateY(-50%);right:24px;color:#fff}
 .feat-body .tag{font-family:"Paperlogy",sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.82)}
 .feat-body h3{font-family:"Paperlogy",sans-serif;font-weight:700;font-size:clamp(26px,4vw,52px);letter-spacing:-.01em;margin:12px 0 10px;color:#fff}
 .feat-body p{font-size:clamp(14px,1.5vw,17px);color:rgba(255,255,255,.82);max-width:46ch;margin-bottom:18px}
 .feat-more{display:inline-flex;align-items:center;gap:8px;font-family:"Paperlogy",sans-serif;font-size:13.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;transition:gap .25s ease}
+.feat-card:nth-of-type(2) .feat-media{filter:hue-rotate(65deg)}
+.feat-card:nth-of-type(3) .feat-media{filter:hue-rotate(-55deg)}
 .feat-card:hover .feat-more{gap:14px}
 .feat-hint{position:absolute;z-index:2;right:20px;top:18px;font-family:"Paperlogy",sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 
@@ -207,7 +208,7 @@ html.home{scroll-snap-type:y mandatory}
 .order-status.err{color:#ff9b8a}
 
 /* ---------- FOOTER ---------- */
-footer{padding:48px 0;border-top:1px solid var(--ink-line);color:var(--muted);font-size:13px;scroll-snap-align:start}
+footer{padding:48px 0;border-top:1px solid var(--ink-line);color:var(--muted);font-size:13px}
 .foot-in{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px}
 .foot-info{line-height:1.85}
 .foot-info a{color:var(--muted)}
