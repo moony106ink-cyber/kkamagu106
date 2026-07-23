@@ -2,17 +2,11 @@
 const nav=document.getElementById('nav');
 if(nav){addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>12));}
 
-// 스크롤 등장 애니메이션 (일반: 1회)
+// 스크롤 등장 애니메이션 (서브페이지 요소들: 1회)
 const io=new IntersectionObserver((es)=>{
   es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
 },{threshold:.14});
-document.querySelectorAll('.reveal:not(.feat-card)').forEach(el=>io.observe(el));
-
-// 대문 대표작: 스크롤 내릴 때·올릴 때 모두 다시 재생 (토글)
-const ioFeat=new IntersectionObserver((es)=>{
-  es.forEach(e=>{ e.target.classList.toggle('in', e.isIntersecting); });
-},{threshold:.28});
-document.querySelectorAll('.featured .reveal').forEach(el=>ioFeat.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 // Work 카테고리 필터 (work 페이지에서만 동작)
 const tabs=document.querySelectorAll('.work-tab');

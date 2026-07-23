@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="home">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,72 +21,71 @@
   </div>
 </nav>
 
-<!-- ================= FULL-SCREEN HERO ================= -->
-<header class="hero">
-  <!-- 영상 자리(가짜 모션). 나중에 아래 .hero-media 안을
-       <video autoplay muted loop playsinline poster="poster.jpg"><source src="hero.mp4" type="video/mp4"></video> 로 교체하면 실제 영상 -->
-  <div class="hero-media" aria-hidden="true">
-    <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-  </div>
-  <div class="hero-scrim" aria-hidden="true"></div>
+<main class="stack">
 
-  <div class="hero-content">
-    <div class="wrap">
-      <div class="eyebrow">Editorial · Branding · Commercial</div>
-      <h1 class="hero-title">
-        비즈니스를<br>
-        <span class="grad-text">움직이는</span> <span class="kr">디자인</span>
-      </h1>
-      <p class="hero-sub">제안서부터 상세페이지, 브랜딩까지 —<br><span class="thin">비즈니스에 필요한 디자인을 완성도 있게</span></p>
+  <!-- ================= HERO (패널 1) ================= -->
+  <header class="panel hero">
+    <!-- 영상 자리(가짜 모션). 나중에 .hero-media 안을
+         <video autoplay muted loop playsinline poster="poster.jpg"><source src="hero.mp4" type="video/mp4"></video> 로 교체 -->
+    <div class="hero-media" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
     </div>
-  </div>
-  <span class="hero-hint">Video coming soon</span>
-</header>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="hero-content">
+      <div class="wrap">
+        <div class="eyebrow">Editorial · Branding · Commercial</div>
+        <h1 class="hero-title">
+          비즈니스를<br>
+          <span class="grad-text">움직이는</span> <span class="kr">디자인</span>
+        </h1>
+        <p class="hero-sub">제안서부터 상세페이지, 브랜딩까지 —<br><span class="thin">비즈니스에 필요한 디자인을 완성도 있게</span></p>
+      </div>
+    </div>
+    <span class="hero-hint">Video coming soon</span>
+  </header>
 
-<!-- ================= FEATURED (대표작 — 풀폭 영상) ================= -->
-<section class="section featured">
-    <div class="feat-list">
-      <a class="feat-card reveal" href="work.html">
-        <div class="feat-media" aria-hidden="true">
-          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-        </div>
-        <div class="feat-scrim"></div>
-        <span class="feat-hint">Video coming soon</span>
-        <div class="feat-body">
-          <div class="tag">Project</div>
-          <h3>대표 프로젝트</h3>
-          <p>대표작 소개가 들어갑니다.</p>
-          <span class="feat-more">More →</span>
-        </div>
-      </a>
-      <a class="feat-card reveal" href="work.html">
-        <div class="feat-media" aria-hidden="true">
-          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-        </div>
-        <div class="feat-scrim"></div>
-        <span class="feat-hint">Video coming soon</span>
-        <div class="feat-body">
-          <div class="tag">Project</div>
-          <h3>대표 프로젝트</h3>
-          <p>대표작 소개가 들어갑니다.</p>
-          <span class="feat-more">More →</span>
-        </div>
-      </a>
-      <a class="feat-card reveal" href="work.html">
-        <div class="feat-media" aria-hidden="true">
-          <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
-        </div>
-        <div class="feat-scrim"></div>
-        <span class="feat-hint">Video coming soon</span>
-        <div class="feat-body">
-          <div class="tag">Project</div>
-          <h3>대표 프로젝트</h3>
-          <p>대표작 소개가 들어갑니다.</p>
-          <span class="feat-more">More →</span>
-        </div>
-      </a>
+  <!-- ================= 대표작 (패널 2~4, 아래에서 덮으며 등장) ================= -->
+  <a class="panel feat-card" href="work.html">
+    <div class="feat-media" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
     </div>
-</section>
+    <div class="feat-scrim"></div>
+    <span class="feat-hint">Video coming soon</span>
+    <div class="feat-body">
+      <div class="tag">Project</div>
+      <h3>대표 프로젝트</h3>
+      <p>대표작 소개가 들어갑니다.</p>
+      <span class="feat-more">More →</span>
+    </div>
+  </a>
+  <a class="panel feat-card" href="work.html">
+    <div class="feat-media" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    </div>
+    <div class="feat-scrim"></div>
+    <span class="feat-hint">Video coming soon</span>
+    <div class="feat-body">
+      <div class="tag">Project</div>
+      <h3>대표 프로젝트</h3>
+      <p>대표작 소개가 들어갑니다.</p>
+      <span class="feat-more">More →</span>
+    </div>
+  </a>
+  <a class="panel feat-card" href="work.html">
+    <div class="feat-media" aria-hidden="true">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+    </div>
+    <div class="feat-scrim"></div>
+    <span class="feat-hint">Video coming soon</span>
+    <div class="feat-body">
+      <div class="tag">Project</div>
+      <h3>대표 프로젝트</h3>
+      <p>대표작 소개가 들어갑니다.</p>
+      <span class="feat-more">More →</span>
+    </div>
+  </a>
+
+</main>
 
 <footer>
   <div class="wrap foot-in">
