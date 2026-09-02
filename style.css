@@ -65,7 +65,9 @@ body.sub .site-nav{background:rgba(14,15,19,.55);backdrop-filter:blur(10px)}
 .nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--grad)}
 @media(max-width:640px){
   .nav-links{gap:15px;font-size:12px}
-  .brand img{height:20px}
+  /* 로고가 굵은 덩어리라 같은 24px 여백에서도 왼쪽이 더 넓어 보임(착시).
+     크기를 한 단계 낮춰 시각적 무게를 맞춤. 더 줄이려면 17 → 16px */
+  .brand img{height:17px}
   .nav-in{height:60px;gap:12px}
   /* 모바일: 로고 옆 텍스트를 숨겨 메뉴 4개가 다 들어오게 함
      (로고 이미지만으로 브랜드 식별 충분 / 스크린리더용으로 화면 밖에 남겨둠) */
