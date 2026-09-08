@@ -62,7 +62,6 @@ body.sub .site-nav{background:rgba(14,15,19,.55);backdrop-filter:blur(10px)}
 .nav-links a{transition:color .2s;position:relative}
 .nav-links a:hover{color:var(--paper)}
 .nav-links a.active{color:var(--paper)}
-.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1.5px;background:var(--grad)}
 @media(max-width:640px){
   .nav-links{gap:15px;font-size:12px}
   /* 로고가 굵은 덩어리라 같은 24px 여백에서도 왼쪽이 더 넓어 보임(착시).
@@ -179,12 +178,11 @@ body.work-page .section{padding-top:0}
 .feat-hint{position:absolute;z-index:2;right:20px;top:18px;font-family:"Paperlogy",sans-serif;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.55)}
 
 /* ---------- WORK 필터 탭 ---------- */
-.work-tabs{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:34px 0 0}
+.work-tabs{display:flex;flex-wrap:wrap;gap:26px;justify-content:center;margin:34px 0 0}
 .work-tab{font-family:"Paperlogy",sans-serif;font-size:14px;font-weight:300;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);
-  background:transparent;border:1.5px solid var(--ink-line);border-radius:999px;padding:9px 20px;cursor:pointer;transition:all .2s}
-.work-tab:hover{color:var(--paper);border-color:rgba(236,233,225,.3)}
-.work-tab.active{color:var(--paper);border:1.5px solid transparent;
-  background:linear-gradient(var(--ink),var(--ink)) padding-box, var(--grad) border-box}
+  background:transparent;border:0;padding:6px 0;cursor:pointer;transition:color .2s}
+.work-tab:hover{color:var(--paper)}
+.work-tab.active{color:var(--paper)}
 .work-card[hidden]{display:none}
 
 /* ---------- STORY ---------- */
