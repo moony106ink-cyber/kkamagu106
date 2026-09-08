@@ -215,7 +215,7 @@ body.work-page .section{padding-top:0}
 }
 
 /* ---------- ORDER FORM ---------- */
-.order-wrap{background:var(--ink-raised);border:1px solid var(--ink-line);border-radius:20px;padding:clamp(26px,4vw,46px)}
+.order-wrap{padding:0}
 #orderForm{display:flex;flex-direction:column}
 #orderForm .btn{align-self:flex-end}
 .order-intro{color:var(--muted);font-size:15px;margin-bottom:30px;max-width:58ch}
