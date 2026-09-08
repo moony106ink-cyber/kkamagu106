@@ -90,10 +90,10 @@ body.sub .site-nav{background:rgba(14,15,19,.55);backdrop-filter:blur(10px)}
 .hero{display:flex;align-items:center}
 .hero-media{position:absolute;inset:0;z-index:0;background:var(--ink);overflow:hidden}
 /* 대형 로고 마크 — 오른쪽으로 흘러나가게 배치, 아주 옅게 */
-.hero-mark{position:absolute;right:-14%;top:50%;transform:translateY(-50%);
-  width:min(96vw,1500px);height:auto;opacity:.07;object-fit:contain;pointer-events:none}
+.hero-mark{position:absolute;left:-75vw;top:50%;transform:translateY(-50%);
+  width:270vw;max-width:none;height:auto;opacity:.075;pointer-events:none}
 @media(max-width:820px){
-  .hero-mark{right:-30%;width:150vw;opacity:.06}
+  .hero-mark{left:-120vw;width:400vw;opacity:.07}
 }
 /* 지금은 가짜 영상(모션). 나중에 아래 .hero-media 내용을
    <video autoplay muted loop playsinline poster="..."> ... </video> 로 교체하면 실제 영상 */
