@@ -14,14 +14,19 @@
 <link rel="stylesheet" href="style.css" />
 <style>
 /* ===== 케이스 스터디 전용 ===== */
-.cs-head{padding:clamp(96px,15vh,160px) 0 clamp(40px,6vh,64px)}
+.cs-head{padding:clamp(88px,14vh,150px) 0 clamp(44px,7vh,72px);text-align:center}
 .cs-head h1{
-  font-family:"Paperlogy",sans-serif;font-weight:700;
-  font-size:clamp(27px,5.1vw,54px);line-height:1.12;letter-spacing:-.015em;margin-bottom:22px}
-.cs-tags{display:flex;flex-wrap:wrap;gap:8px}
-.cs-tags span{
-  font-family:"Paperlogy",sans-serif;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--muted);border:1px solid var(--ink-line);border-radius:999px;padding:7px 15px}
+  font-family:"Paperlogy",sans-serif;font-weight:400;
+  font-size:clamp(22px,3.6vw,42px);line-height:1.24;letter-spacing:-.005em;
+  margin:0 auto 26px;max-width:20ch}
+.cs-tags{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;
+  gap:0 14px;row-gap:8px}
+.cs-tags span{position:relative;font-family:"Paperlogy",sans-serif;font-size:13px;
+  letter-spacing:.01em;color:var(--muted);padding-right:14px}
+.cs-tags span::after{content:"";position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:1px;height:11px;background:var(--ink-line)}
+.cs-tags span:last-child{padding-right:0}
+.cs-tags span:last-child::after{display:none}
 
 /* 이미지 스트림 — 캡션 없음 */
 .cs-stream{display:flex;flex-direction:column;gap:clamp(14px,2.4vh,26px);
@@ -30,12 +35,10 @@
 
 /* 본문 — 맨 아래 / 좌 영문 · 우 한글 */
 .cs-body{border-top:1px solid var(--ink-line);padding-top:clamp(48px,7vh,80px);
-  display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,5vw,72px)}
+  display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,3.4vw,52px);max-width:70%}
 .cs-body p{color:var(--muted);font-size:16px;line-height:1.85;margin-bottom:22px}
 .cs-body p:last-child{margin-bottom:0}
 .cs-en p{font-size:15px;line-height:1.8}
-.cs-lang{font-family:"Paperlogy",sans-serif;font-size:11px;letter-spacing:.14em;
-  text-transform:uppercase;color:var(--muted);opacity:.6;margin-bottom:20px}
 
 /* 크레딧 */
 .cs-credit{border-top:1px solid var(--ink-line);margin-top:clamp(48px,7vh,80px);
@@ -45,7 +48,7 @@
 .cs-credit dd{font-size:15px}
 
 @media(max-width:720px){
-  .cs-body{grid-template-columns:1fr;gap:44px}
+  .cs-body{grid-template-columns:1fr;gap:44px;max-width:none}
   .cs-credit{grid-template-columns:1fr;gap:20px}
 }
 </style>
@@ -67,7 +70,7 @@
 <div class="wrap">
 
   <header class="cs-head">
-    <h1>까마귀106<br>Brand Identity</h1>
+    <h1>까마귀106 — Brand Identity</h1>
     <div class="cs-tags">
       <span>Logo</span><span>Branding</span><span>Typography</span>
       <span>Self-Initiated Project</span><span>2026</span>
@@ -91,10 +94,9 @@
   <section class="cs-body">
 
     <div class="cs-en">
-      <div class="cs-lang">English</div>
       <p>The identity begins with Mount Geumo in Gumi. A monk is said to have named the mountain after seeing a golden crow flying into the evening glow. Geumo means the crow that lives inside the sun — a dark bird that is also light. One form, two readings. That is where the studio's work usually starts.</p>
 
-      <p>The logotype is built from five characters: 1 1 0 6 1. Read as Korean initial consonants, three of them spell Kkamagwi, meaning crow. Read as numerals, three of them make 106. The two readings are not placed side by side; they share the two characters in the middle.</p>
+      <p>The logotype is built from five characters: 1 1 0 6 1. Setting the 6 aside, the remaining characters read as Korean initial consonants and spell Kkamagwi, meaning crow. Read as numerals, three of them make 106. The two readings are not placed side by side; they share the two characters in the middle.</p>
 
       <p>Strokes are heavy and squared. Curves were removed and only verticals and horizontals remain, because a form that must be read two ways cannot afford to waver. A single diagonal appears once, on the 6.</p>
 
@@ -102,12 +104,11 @@
     </div>
 
     <div class="cs-ko">
-      <div class="cs-lang">한국어</div>
       <p>까마귀106의 이름은 구미 금오산에서 출발한다. 아도화상이 저녁놀 속을 나는 황금빛 까마귀를 보고 금오산이라 이름 지었다고 전한다. 금오(金烏)는 해 속에 산다는 새로, 태양의 정기를 뜻한다. 어두운 새이면서 동시에 빛인 셈이다. 하나로 보이지만 둘인 것. 까마귀106의 작업은 대체로 여기서 시작한다.</p>
 
       <p>이름을 지을 때는 뜻을 담는다. 로고는 그 뜻을 눈에 보이게 만드는 일이다.</p>
 
-      <p>로고타입은 다섯 개의 글자로 이루어진다. 1 1 0 6 1. 앞의 넷 중 셋을 초성으로 읽으면 ㄲ ㅁ ㄱ, 까마귀가 된다. 가운데부터 셋을 숫자로 읽으면 106이 된다. 두 읽기는 나란히 놓이지 않고 가운데 두 글자를 공유한다. 하나의 형태 안에서 상호명 전체가 겹쳐 있다.</p>
+      <p>로고타입은 다섯 개의 글자로 이루어진다. 1 1 0 6 1. 숫자 6을 제외하고 나머지를 초성으로 읽으면 ㄲ ㅁ ㄱ, 까마귀가 된다. 가운데부터 셋을 숫자로 읽으면 106이 된다. 두 읽기는 나란히 놓이지 않고 가운데 두 글자를 공유한다. 하나의 형태 안에서 상호명 전체가 겹쳐 있다.</p>
 
       <p>획은 굵고 각지게 다듬었다. 곡선을 줄이고 수직과 수평만 남겼다. 두 가지로 읽히려면 형태 자체는 흔들림이 없어야 하기 때문이다. 사선은 6에 단 한 번만 쓰인다.</p>
 
