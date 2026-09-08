@@ -223,7 +223,7 @@ body.work-page .section{padding-top:0}
 .field label{display:block;font-size:13.5px;margin-bottom:8px;color:var(--paper)}
 .field label .req{color:var(--sheen-a);margin-left:4px}
 .field input,.field textarea{
-  width:100%;background:var(--ink);border:1px solid var(--ink-line);border-radius:10px;
+  width:100%;background:var(--ink);border:1px solid var(--ink-line);border-radius:0;
   color:var(--paper);font-family:inherit;font-size:15px;padding:13px 14px;transition:border-color .2s;
 }
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--sheen-a)}
@@ -234,7 +234,7 @@ body.work-page .section{padding-top:0}
 .btn{
   display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:none;
   font-family:"Paperlogy",sans-serif;font-weight:500;font-size:15px;letter-spacing:.02em;
-  padding:15px 26px;border-radius:11px;background:var(--grad);color:#0b0c10;transition:transform .2s,filter .2s;
+  padding:15px 26px;border-radius:0;background:var(--grad);color:#0b0c10;transition:transform .2s,filter .2s;
 }
 .btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
 .order-note{margin-top:16px;font-size:12.5px;color:var(--muted)}
